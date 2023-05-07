@@ -29,6 +29,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17
     }
@@ -37,6 +42,7 @@ android {
 
 dependencies {
     api project(":core")
+    api project(":feature")
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -47,6 +53,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-compiler:2.44"
+    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
 
     // Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
