@@ -1,8 +1,8 @@
 package com.zogik.feature.data.mapper
 
-import com.zogik.core.data.entity.AlbumEntity
-import com.zogik.core.data.entity.ArtistEntity
-import com.zogik.core.data.entity.SearchEntity
+import com.zogik.core.domain.entity.AlbumEntity
+import com.zogik.core.domain.entity.ArtistEntity
+import com.zogik.core.domain.entity.SearchEntity
 import com.zogik.feature.data.response.DataItem
 
 object SearchDb {

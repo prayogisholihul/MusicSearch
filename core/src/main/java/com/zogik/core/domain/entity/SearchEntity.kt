@@ -1,8 +1,8 @@
-package com.zogik.core.data.entity
+package com.zogik.core.domain.entity
 
 import androidx.room.Entity
 
-@Entity(tableName = "searchEntity")
+@Entity(tableName = "SearchEntity")
 data class SearchEntity(
     val readable: Boolean? = null,
     val preview: String? = null,

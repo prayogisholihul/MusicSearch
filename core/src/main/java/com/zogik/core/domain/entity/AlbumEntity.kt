@@ -1,4 +1,4 @@
-package com.zogik.core.data.entity
+package com.zogik.core.domain.entity
 
 data class AlbumEntity(
     val cover: String? = null,

@@ -1,4 +1,4 @@
-package com.zogik.core.data.entity
+package com.zogik.core.domain.entity
 
 data class ArtistEntity(
     val pictureXl: String? = null,

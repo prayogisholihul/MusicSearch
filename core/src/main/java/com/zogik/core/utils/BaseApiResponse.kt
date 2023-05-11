@@ -14,7 +14,7 @@ abstract class BaseApiResponse {
                 }
                 return Resource.success(null)
             }
-            val jsonObj = JSONObject(response.errorBody()?.charStream()?.readText()!!)
+            val jsonObj = JSONObject(response.errorBody()?.charStream()?.readText().orEmpty())
             return error("${response.code()} ${jsonObj.getJSONObject("message")}")
         } catch (e: Exception) {
             return when {

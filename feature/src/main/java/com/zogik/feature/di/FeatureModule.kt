@@ -1,5 +1,6 @@
 package com.zogik.feature.di
 
+import com.zogik.core.data.DatabaseApp
 import com.zogik.feature.data.RepositoryImpl
 import com.zogik.feature.data.network.ApiClient
 import com.zogik.feature.domain.Interactor
@@ -8,7 +9,6 @@ import com.zogik.feature.domain.UseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import javax.inject.Singleton
@@ -25,9 +25,9 @@ object FeatureModule {
 
     @Provides
     @Singleton
-    fun repo(apiClient: ApiClient): Repository = RepositoryImpl(apiClient)
+    fun repo(apiClient: ApiClient, local: DatabaseApp): Repository = RepositoryImpl(apiClient, local)
 
     @Provides
-    @ViewModelScoped
+    @Singleton
     fun interactor(repository: Repository): UseCase = Interactor(repository)
 }
