@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="com.zogik.feature.Home"
+        android:name="com.zogik.feature.presentation.Home"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/favorite"
-        android:name="com.zogik.feature.Favorite"
+        android:name="com.zogik.feature.presentation.Favorite"
         android:label="Favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/setting"
-        android:name="com.zogik.feature.Setting"
+        android:name="com.zogik.feature.presentation.Setting"
         android:label="Setting"
         tools:layout="@layout/fragment_setting" />
 
