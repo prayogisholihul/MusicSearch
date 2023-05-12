@@ -1,19 +1,17 @@
 package com.zogik.musicsearch
 
 import android.app.Application
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.HiltAndroidApp
 
-@Module
-@InstallIn(SingletonComponent::class)
-class ApplicationModule {
+@HiltAndroidApp
+class ApplicationModule : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        instance = this
+    }
 
-    @Provides
-    @Singleton
-    fun provideApp(): Application {
-        return Dependency.instance
+    companion object {
+        lateinit var instance: ApplicationModule
+            private set
     }
 }

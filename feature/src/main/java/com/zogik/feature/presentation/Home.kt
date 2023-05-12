@@ -5,17 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.zogik.feature.R
+import com.zogik.feature.data.network.ApiClient
+import com.zogik.feature.presentation.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  * Use the [Home.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class Home : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +34,19 @@ class Home : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val artistName = listOf("For Revenge")
+        val key: Map<String, List<String>> = mapOf("artist" to artistName)
+        viewModel.search(key)
     }
 
     companion object {

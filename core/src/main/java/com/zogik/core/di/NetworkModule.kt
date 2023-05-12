@@ -9,7 +9,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Protocol
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -46,9 +45,7 @@ object NetworkModule {
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(50, TimeUnit.SECONDS)
 
-        return httpBuilder
-            .protocols(mutableListOf(Protocol.HTTP_1_1))
-            .build()
+        return httpBuilder.build()
     }
 
     @Provides

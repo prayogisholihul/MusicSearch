@@ -24,10 +24,15 @@ class RepositoryImpl @Inject constructor(
                 local.getFavoriteDao().getAll()
             },
             fetch = {
-                safeApiCall { api.search(key) }
+                safeApiCall {
+                    api.search(key)
+                }
             },
             saveFetchResult = {
-                SearchDb.mapper(it.data?.data.orEmpty())
+                val mapper = SearchDb.mapper(it.data?.data.orEmpty())
+                mapper.map { searchResult ->
+                    local.getFavoriteDao().insert(searchResult)
+                }
             },
             onFetchFailed = { },
             shouldFetch = { it.isEmpty() },

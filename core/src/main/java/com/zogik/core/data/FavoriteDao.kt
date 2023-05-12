@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.Flow
 interface FavoriteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(postList: List<String>)
+    suspend fun insert(list: SearchEntity)
 
-    @Query("SELECT * FROM SearchEntity")
+    @Query("SELECT * FROM Search")
     fun getAll(): Flow<List<SearchEntity>>
 }

@@ -47,7 +47,7 @@ data class DataItem(
     val rank: Int? = null,
 
     @field:SerializedName("id")
-    val id: Int? = null,
+    val id: String? = null,
 
     @field:SerializedName("explicit_content_lyrics")
     val explicitContentLyrics: Int? = null,

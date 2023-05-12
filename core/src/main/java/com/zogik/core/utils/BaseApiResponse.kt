@@ -1,5 +1,6 @@
 package com.zogik.core.utils
 
+import android.util.Log
 import org.json.JSONObject
 import retrofit2.Response
 
@@ -14,6 +15,8 @@ abstract class BaseApiResponse {
                 }
                 return Resource.success(null)
             }
+
+            Log.d("searchRespond", response.toString())
             val jsonObj = JSONObject(response.errorBody()?.charStream()?.readText().orEmpty())
             return error("${response.code()} ${jsonObj.getJSONObject("message")}")
         } catch (e: Exception) {

@@ -23,7 +23,7 @@ data class Artist(
 	val pictureSmall: String? = null,
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: String? = null,
 
 	@field:SerializedName("type")
 	val type: String? = null,

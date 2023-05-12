@@ -23,7 +23,7 @@ data class Album(
     val coverSmall: String? = null,
 
     @field:SerializedName("id")
-    val id: Int? = null,
+    val id: String? = null,
 
     @field:SerializedName("title")
     val title: String? = null,
