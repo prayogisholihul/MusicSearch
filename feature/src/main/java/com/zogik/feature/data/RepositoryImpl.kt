@@ -1,6 +1,7 @@
 package com.zogik.feature.data
 
 import com.zogik.core.data.DatabaseApp
+import com.zogik.core.di.NetworkModule
 import com.zogik.core.domain.entity.SearchEntity
 import com.zogik.core.utils.BaseApiResponse
 import com.zogik.core.utils.Resource
@@ -12,7 +13,7 @@ import networkBoundResource
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
-    private val api: ApiClient,
+    @NetworkModule.RetrofitBase private val api: ApiClient,
     private val local: DatabaseApp,
 ) :
     BaseApiResponse(),

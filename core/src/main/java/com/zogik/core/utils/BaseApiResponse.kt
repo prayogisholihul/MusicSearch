@@ -8,6 +8,7 @@ abstract class BaseApiResponse {
     suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>): Resource<T> {
         try {
             val response = apiCall()
+            Log.d("searchRespond", response.toString())
             if (response.isSuccessful) {
                 val body = response.body()
                 body?.let {
@@ -15,8 +16,6 @@ abstract class BaseApiResponse {
                 }
                 return Resource.success(null)
             }
-
-            Log.d("searchRespond", response.toString())
             val jsonObj = JSONObject(response.errorBody()?.charStream()?.readText().orEmpty())
             return error("${response.code()} ${jsonObj.getJSONObject("message")}")
         } catch (e: Exception) {
