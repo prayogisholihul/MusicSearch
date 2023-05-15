@@ -29,8 +29,9 @@ object NetworkModule {
     fun getInterceptor(): Interceptor {
         return Interceptor {
             val request = it.request().newBuilder()
-            val actualRequest = request.build()
-            it.proceed(actualRequest)
+            request.addHeader("Authorization", "Bearer " + BuildConfig.API_KEY)
+
+            it.proceed(request.build())
         }
     }
 

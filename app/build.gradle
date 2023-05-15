@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.zogik.musicsearch'
+    namespace 'com.zogik.moviesearch'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.zogik.musicsearch"
+        applicationId "com.zogik.moviesearch"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -41,8 +41,8 @@ android {
 }
 
 dependencies {
-    api project(":core")
-    api project(":feature")
+    implementation project(":core")
+    implementation project(":feature")
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'

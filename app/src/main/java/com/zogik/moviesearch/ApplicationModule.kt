@@ -1,4 +1,4 @@
-package com.zogik.musicsearch
+package com.zogik.moviesearch
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

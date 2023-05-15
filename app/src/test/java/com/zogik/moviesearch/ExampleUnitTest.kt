@@ -1,4 +1,4 @@
-package com.zogik.musicsearch
+package com.zogik.moviesearch
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -1,4 +1,4 @@
-package com.zogik.musicsearch
+package com.zogik.moviesearch
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,7 +11,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.zogik.musicsearch.databinding.ActivityMainBinding
+import com.zogik.moviesearch.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
