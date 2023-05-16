@@ -1,6 +1,7 @@
 package com.zogik.feature.di
 
 import com.zogik.core.data.DatabaseApp
+import com.zogik.core.di.qualifier.RetrofitBase
 import com.zogik.feature.data.RepositoryImpl
 import com.zogik.feature.data.network.ApiClient
 import com.zogik.feature.domain.Interactor
@@ -19,7 +20,7 @@ object FeatureModule {
 
     @Provides
     @Singleton
-    fun getApiClient(retrofit: Retrofit): ApiClient {
+    fun getApiClient(@RetrofitBase retrofit: Retrofit): ApiClient {
         return retrofit.create(ApiClient::class.java)
     }
 
