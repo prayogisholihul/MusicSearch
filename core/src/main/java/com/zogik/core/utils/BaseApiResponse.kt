@@ -18,13 +18,14 @@ abstract class BaseApiResponse {
             }
             val jsonObj = JSONObject(response.errorBody()?.charStream()?.readText().orEmpty())
             return error("${response.code()} ${jsonObj.getJSONObject("message")}")
-        } catch (e: Exception) {
+        } catch (error: Exception) {
+            Log.d("searchRespondError", error.message.orEmpty())
             return when {
-                e.message?.contains("Unauthorized") == true -> {
+                error.message?.contains("Unauthorized") == true -> {
                     error("Unauthorized")
                 }
 
-                else -> error(e.message ?: e.toString())
+                else -> error(error.message ?: error.toString())
             }
         }
     }

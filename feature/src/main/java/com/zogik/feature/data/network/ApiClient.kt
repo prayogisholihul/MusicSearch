@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface ApiClient {
 
     @GET("movie/now_playing")
-    fun fetchMovie(): Response<ResponseMovie>
+    suspend fun fetchMovie(): Response<ResponseMovie>
 }
