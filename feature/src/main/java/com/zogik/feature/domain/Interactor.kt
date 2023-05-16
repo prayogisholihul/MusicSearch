@@ -6,7 +6,11 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class Interactor @Inject constructor(private val repo: Repository) : UseCase {
-    override suspend fun search(key: Map<String, List<String>>): Flow<Resource<List<SearchEntity>>> {
+    override suspend fun search(key: String): Flow<Resource<List<SearchEntity>>> {
         return repo.search(key)
+    }
+
+    override suspend fun chart(): Flow<Resource<List<SearchEntity>>> {
+        return repo.chart()
     }
 }

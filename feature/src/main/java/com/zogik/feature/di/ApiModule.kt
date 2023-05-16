@@ -1,6 +1,6 @@
 package com.zogik.feature.di
 
-import com.zogik.core.di.NetworkModule
+import RetrofitBase
 import com.zogik.feature.data.network.ApiClient
 import dagger.Module
 import dagger.Provides
@@ -14,8 +14,7 @@ import javax.inject.Singleton
 object ApiModule {
     @Provides
     @Singleton
-    @NetworkModule.RetrofitBase
-    fun provideApiClient(retrofit: Retrofit): ApiClient {
+    fun provideApiClient(@RetrofitBase retrofit: Retrofit): ApiClient {
         return retrofit.create(ApiClient::class.java)
     }
 }

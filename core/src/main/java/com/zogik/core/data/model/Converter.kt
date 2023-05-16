@@ -8,6 +8,7 @@ import com.zogik.core.domain.entity.ArtistEntity
 
 class Converter {
 
+    // ALBUM
     @TypeConverter
     fun fromAlbumEntity(value: AlbumEntity): String {
         val gson = Gson()
@@ -22,10 +23,11 @@ class Converter {
         return gson.fromJson(value, type)
     }
 
+    // ARTIST
     @TypeConverter
     fun fromArtistEntity(value: ArtistEntity): String {
         val gson = Gson()
-        val type = object : TypeToken<AlbumEntity>() {}.type
+        val type = object : TypeToken<ArtistEntity>() {}.type
         return gson.toJson(value, type)
     }
 

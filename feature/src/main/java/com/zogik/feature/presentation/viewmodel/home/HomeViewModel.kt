@@ -1,4 +1,4 @@
-package com.zogik.feature.presentation.viewmodel
+package com.zogik.feature.presentation.viewmodel.home
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -19,11 +19,21 @@ class HomeViewModel @Inject constructor(private val useCase: UseCase) : ViewMode
     private val _search: MutableLiveData<Resource<List<SearchEntity>>> = MutableLiveData()
     val search: LiveData<Resource<List<SearchEntity>>> = _search
 
-    fun search(key: Map<String, List<String>>) {
+    fun search(key: String) {
         viewModelScope.launch {
             useCase.search(key).collectLatest {
                 _search.value = it
-                Log.d("searchVM", it.data.toString())
+            }
+        }
+    }
+
+    private val _chart: MutableLiveData<Resource<List<SearchEntity>>> = MutableLiveData()
+    val chart: LiveData<Resource<List<SearchEntity>>> = _chart
+
+    fun chart() {
+        viewModelScope.launch {
+            useCase.chart().collectLatest {
+                _chart.value = it
             }
         }
     }

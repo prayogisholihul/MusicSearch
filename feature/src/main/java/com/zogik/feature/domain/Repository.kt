@@ -6,5 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface Repository {
 
-    suspend fun search(key: Map<String, List<String>>): Flow<Resource<List<SearchEntity>>>
+    suspend fun search(key: String): Flow<Resource<List<SearchEntity>>>
+    suspend fun chart(): Flow<Resource<List<SearchEntity>>>
 }

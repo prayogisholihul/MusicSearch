@@ -1,37 +1,23 @@
 package com.zogik.feature.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.zogik.core.domain.entity.SearchEntity
 import com.zogik.feature.R
-import com.zogik.feature.data.network.ApiClient
-import com.zogik.feature.presentation.viewmodel.HomeViewModel
+import com.zogik.feature.presentation.viewmodel.home.HomeViewModel
+import com.zogik.feature.presentation.viewmodel.home.Observer
+import com.zogik.feature.presentation.viewmodel.home.State
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Home.newInstance] factory method to
- * create an instance of this fragment.
- */
 @AndroidEntryPoint
-class Home : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class Home : Fragment(), State {
 
     private val viewModel: HomeViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,31 +30,25 @@ class Home : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val artistName = listOf("For Revenge")
-        val key: Map<String, List<String>> = mapOf("artist" to artistName)
-        viewModel.search(key)
+        val key: Map<String, String> = mapOf("artist" to "Avenged")
+        Log.d("key", key.mapExt())
+        viewModel.chart()
+
+        lifecycle.addObserver(Observer(viewModel, this))
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Home.
-         */
-        private const val ARG_PARAM1 = "param1"
-        private const val ARG_PARAM2 = "param2"
+    override fun onLoadingChart() {
+        super.onLoadingChart()
+        Log.d("loading", "loading")
+    }
 
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Home().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onSuccessChart(data: List<SearchEntity>) {
+        super.onSuccessChart(data)
+        Log.d("success", data[0].artist.name)
+    }
+
+    override fun onErrorChart(error: String) {
+        super.onErrorChart(error)
+        Log.d("error", error)
     }
 }

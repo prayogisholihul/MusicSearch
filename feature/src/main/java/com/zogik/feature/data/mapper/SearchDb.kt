@@ -20,7 +20,6 @@ object SearchDb {
                 it.artist?.picture.orEmpty(),
                 it.artist?.pictureMedium.orEmpty(),
             )
-
             val albumConvert = AlbumEntity(
                 it.album?.id.orEmpty(),
                 it.album?.cover.orEmpty(),
