@@ -1,4 +1,4 @@
-package com.zogik.feature.presentation
+package com.zogik.feature.presentation.home
 
 import android.os.Bundle
 import android.util.Log
@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.zogik.core.domain.entity.SearchEntity
+import com.zogik.core.domain.model.Track
 import com.zogik.feature.R
-import com.zogik.feature.presentation.viewmodel.home.HomeViewModel
-import com.zogik.feature.presentation.viewmodel.home.Observer
-import com.zogik.feature.presentation.viewmodel.home.State
+import com.zogik.feature.presentation.mapExt
+import com.zogik.feature.presentation.home.viewmodel.HomeViewModel
+import com.zogik.feature.presentation.home.viewmodel.Observer
+import com.zogik.feature.presentation.home.viewmodel.State
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,7 +43,7 @@ class Home : Fragment(), State {
         Log.d("loading", "loading")
     }
 
-    override fun onSuccessChart(data: List<SearchEntity>) {
+    override fun onSuccessChart(data: List<Track>) {
         super.onSuccessChart(data)
         Log.d("success", data[0].artist.name)
     }

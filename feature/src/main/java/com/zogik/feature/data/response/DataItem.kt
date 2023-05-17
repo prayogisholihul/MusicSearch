@@ -14,10 +14,10 @@ data class DataItem(
     val md5Image: String? = null,
 
     @field:SerializedName("artist")
-    val artist: Artist? = null,
+    val artistResponse: ArtistResponse? = null,
 
     @field:SerializedName("album")
-    val album: Album? = null,
+    val album: AlbumResponse? = null,
 
     @field:SerializedName("link")
     val link: String? = null,

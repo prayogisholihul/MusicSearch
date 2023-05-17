@@ -1,11 +1,6 @@
-package com.zogik.core.domain.entity
+package com.zogik.core.domain.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "Artist")
-data class ArtistEntity(
-    @PrimaryKey
+data class Artist(
     val id: String,
     val pictureXl: String,
     val tracklist: String,

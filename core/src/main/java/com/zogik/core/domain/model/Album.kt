@@ -1,11 +1,6 @@
-package com.zogik.core.domain.entity
+package com.zogik.core.domain.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "Album")
-data class AlbumEntity(
-    @PrimaryKey
+data class Album(
     val id: String,
     val cover: String,
     val md5Image: String,

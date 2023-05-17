@@ -3,8 +3,8 @@ package com.zogik.core.data.model
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.zogik.core.domain.entity.AlbumEntity
-import com.zogik.core.domain.entity.ArtistEntity
+import com.zogik.core.data.entity.AlbumEntity
+import com.zogik.core.data.entity.ArtistEntity
 
 class Converter {
 

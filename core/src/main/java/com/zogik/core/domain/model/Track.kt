@@ -1,17 +1,12 @@
-package com.zogik.core.domain.entity
+package com.zogik.core.domain.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "Search")
-data class SearchEntity(
-    @PrimaryKey
+data class Track(
     val id: String,
     val readable: Boolean,
     val preview: String,
     val md5Image: String,
-    val artist: ArtistEntity,
-    val album: AlbumEntity,
+    val artist: Artist,
+    val album: Album,
     val link: String,
     val explicitContentCover: Int,
     val title: String,
@@ -22,4 +17,5 @@ data class SearchEntity(
     val duration: Int,
     val rank: Int,
     val explicitContentLyrics: Int,
+    val isFavorite: Boolean,
 )

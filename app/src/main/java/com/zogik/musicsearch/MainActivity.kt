@@ -11,6 +11,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.google.android.play.core.splitinstall.SplitInstallManager
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.zogik.musicsearch.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +21,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
     private lateinit var menuBottom: Menu
+
+    private val manager: SplitInstallManager by lazy {
+        SplitInstallManagerFactory.create(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             ),
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navController.addOnDestinationChangedListener { _: NavController, destination: NavDestination, _: Bundle? ->
+        navController.addOnDestinationChangedListener { controller: NavController, destination: NavDestination, _: Bundle? ->
             binding.bottomBar.isVisible =
                 appBarConfiguration.topLevelDestinations.contains(destination.id)
         }
@@ -58,5 +64,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    companion object {
+        private const val REQUEST_CODE_INSTALL_CONFIRMATION = 111
     }
 }

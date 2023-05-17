@@ -1,14 +1,15 @@
 package com.zogik.feature.data
 
 import com.zogik.core.data.DatabaseApp
-import com.zogik.core.domain.entity.SearchEntity
+import com.zogik.core.domain.model.Track
 import com.zogik.core.utils.BaseApiResponse
 import com.zogik.core.utils.Resource
-import com.zogik.feature.data.mapper.SearchDb
+import com.zogik.feature.data.mapper.MapperTrack
 import com.zogik.feature.data.network.ApiClient
 import com.zogik.feature.domain.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import networkBoundResource
 import javax.inject.Inject
 
@@ -19,31 +20,12 @@ class RepositoryImpl @Inject constructor(
     BaseApiResponse(),
     Repository {
 
-    override suspend fun search(key: String): Flow<Resource<List<SearchEntity>>> {
+    override suspend fun chart(): Flow<Resource<List<Track>>> {
         return networkBoundResource(
             query = {
-                local.getFavoriteDao().getAll()
-            },
-            fetch = {
-                safeApiCall {
-                    api.search(key)
-                }
-            },
-            saveFetchResult = {
-                val mapper = SearchDb.mapper(it.data?.data.orEmpty())
-                mapper.map { searchResult ->
-                    local.getFavoriteDao().insert(searchResult)
-                }
-            },
-            shouldFetch = { it.isNullOrEmpty() },
-            coroutineDispatcher = Dispatchers.IO,
-        )
-    }
-
-    override suspend fun chart(): Flow<Resource<List<SearchEntity>>> {
-        return networkBoundResource(
-            query = {
-                local.getFavoriteDao().getAll()
+                val data = local.getChartDao().getAll()
+                val mapper = MapperTrack.entityToDomain(data)
+                flow { emit(mapper) }
             },
             fetch = {
                 safeApiCall {
@@ -51,13 +33,25 @@ class RepositoryImpl @Inject constructor(
                 }
             },
             saveFetchResult = {
-                val mapper = SearchDb.mapper(it.data?.tracks?.data.orEmpty())
-                mapper.map { searchResult ->
-                    local.getFavoriteDao().insert(searchResult)
-                }
+                val mapper = MapperTrack.responseToEntity(it.data?.tracks?.data.orEmpty())
+                local.getChartDao().insert(mapper)
             },
             shouldFetch = { it.isNullOrEmpty() },
             coroutineDispatcher = Dispatchers.IO,
         )
+    }
+
+    override suspend fun getFavorite(): Flow<List<Track>> {
+        return flow {
+            val entity = local.getChartDao().getFavorite()
+            val mapper = MapperTrack.entityToDomain(entity)
+            emit(mapper)
+        }
+    }
+
+    override suspend fun setFavorite(data: Track, favorite: Boolean) {
+        val entity = MapperTrack.domainToEntity(data)
+        entity.isFavorite = favorite
+        local.getChartDao().setFavorite(entity)
     }
 }

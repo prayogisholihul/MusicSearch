@@ -2,7 +2,7 @@ package com.zogik.feature.data.response
 
 import com.google.gson.annotations.SerializedName
 
-data class Album(
+data class AlbumResponse(
 
     @field:SerializedName("cover")
     val cover: String? = null,

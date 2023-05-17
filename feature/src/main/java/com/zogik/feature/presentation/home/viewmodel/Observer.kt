@@ -1,4 +1,4 @@
-package com.zogik.feature.presentation.viewmodel.home
+package com.zogik.feature.presentation.home.viewmodel
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -11,7 +11,7 @@ class Observer(
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
 
-        vm.chart.observe(owner) {
+        vm.track.observe(owner) {
             when (it.status) {
                 Resource.Status.LOADING -> state.onLoadingChart()
                 Resource.Status.SUCCESS -> state.onSuccessChart(it.data.orEmpty())
