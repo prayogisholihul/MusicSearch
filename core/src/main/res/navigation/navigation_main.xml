@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
     app:startDestination="@id/home">
 
     <fragment
         android:id="@+id/home"
         android:name="com.zogik.feature.presentation.home.Home"
-        android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        android:label="Home">
+
+        <action
+            android:id="@+id/homeToDetail"
+            app:destination="@id/detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/favorite"
-        app:moduleName="favorite"
         android:name="com.zogik.favorite.Favorite"
         android:label="Favorite"
-        tools:layout="@layout/fragment_favorite" />
+        app:moduleName="favorite" />
+
     <fragment
         android:id="@+id/setting"
         android:name="com.zogik.feature.presentation.Setting"
-        android:label="Setting"
-        tools:layout="@layout/fragment_setting" />
+        android:label="Setting" />
+
+    <fragment
+        android:id="@+id/detail"
+        android:name="com.zogik.feature.presentation.detail.DetailFragment"
+        android:label="Detail">
+        <argument
+            android:name="data"
+            android:defaultValue="oke"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

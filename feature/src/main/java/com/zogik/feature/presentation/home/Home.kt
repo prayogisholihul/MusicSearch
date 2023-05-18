@@ -2,40 +2,43 @@ package com.zogik.feature.presentation.home
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.zogik.core.domain.model.Track
-import com.zogik.feature.R
-import com.zogik.feature.presentation.mapExt
+import com.zogik.core.presentation.BaseFragment
+import com.zogik.feature.databinding.FragmentHomeBinding
 import com.zogik.feature.presentation.home.viewmodel.HomeViewModel
 import com.zogik.feature.presentation.home.viewmodel.Observer
 import com.zogik.feature.presentation.home.viewmodel.State
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class Home : Fragment(), State {
+class Home : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, State {
 
     private val viewModel: HomeViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val key: Map<String, String> = mapOf("artist" to "Avenged")
-        Log.d("key", key.mapExt())
-        viewModel.chart()
+        initUI()
+        initObserver()
+        initAction()
+        initData()
+    }
 
+    override fun initData() {
+        viewModel.chart()
+    }
+
+    override fun initUI() {
+    }
+
+    override fun initObserver() {
         lifecycle.addObserver(Observer(viewModel, this))
+    }
+
+    override fun initAction() {
+        binding.textView.setOnClickListener(this)
     }
 
     override fun onLoadingChart() {
@@ -51,5 +54,14 @@ class Home : Fragment(), State {
     override fun onErrorChart(error: String) {
         super.onErrorChart(error)
         Log.d("error", error)
+    }
+
+    override fun onClick(v: View?) = with(binding) {
+        when (v) {
+            textView -> {
+                val direction = HomeDirections.homeToDetail()
+                findNavController().navigate(direction)
+            }
+        }
     }
 }
