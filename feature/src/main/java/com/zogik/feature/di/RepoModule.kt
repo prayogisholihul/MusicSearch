@@ -1,7 +1,7 @@
 package com.zogik.feature.di
 
-import com.zogik.feature.data.RepositoryImpl
-import com.zogik.feature.domain.Repository
+import com.zogik.feature.data.ChartRepositoryImpl
+import com.zogik.feature.domain.ChartRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,5 +12,5 @@ import dagger.hilt.components.SingletonComponent
 abstract class RepoModule {
 
     @Binds
-    abstract fun repo(repoImpl: RepositoryImpl): Repository
+    abstract fun repo(repoImpl: ChartRepositoryImpl): ChartRepository
 }

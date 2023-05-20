@@ -1,24 +1,25 @@
 package com.zogik.feature.data
 
+import android.util.Log
 import com.zogik.core.data.DatabaseApp
 import com.zogik.core.domain.model.Track
 import com.zogik.core.utils.BaseApiResponse
 import com.zogik.core.utils.Resource
 import com.zogik.feature.data.mapper.MapperTrack
 import com.zogik.feature.data.network.ApiClient
-import com.zogik.feature.domain.Repository
+import com.zogik.feature.domain.ChartRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import networkBoundResource
 import javax.inject.Inject
 
-class RepositoryImpl @Inject constructor(
+class ChartRepositoryImpl @Inject constructor(
     private val api: ApiClient,
     private val local: DatabaseApp,
 ) :
     BaseApiResponse(),
-    Repository {
+    ChartRepository {
 
     override suspend fun chart(): Flow<Resource<List<Track>>> {
         return networkBoundResource(
@@ -34,6 +35,7 @@ class RepositoryImpl @Inject constructor(
             },
             saveFetchResult = {
                 val mapper = MapperTrack.responseToEntity(it.data?.tracks?.data.orEmpty())
+                Log.d("TrackDataRepo", mapper.toString())
                 local.getChartDao().insert(mapper)
             },
             shouldFetch = { it.isNullOrEmpty() },

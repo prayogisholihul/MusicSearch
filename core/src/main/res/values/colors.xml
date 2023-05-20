@@ -9,4 +9,5 @@
     <color name="purple_grey40">#FF625b71</color>
     <color name="pink40">#FF7D5260</color>
     <color name="white_20">#FFFFFBFE</color>
+    <color name="background">#F1F5F8</color>
 </resources>

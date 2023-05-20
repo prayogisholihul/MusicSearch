@@ -6,21 +6,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zogik.core.domain.model.Track
 import com.zogik.core.utils.Resource
-import com.zogik.feature.domain.UseCase
+import com.zogik.feature.domain.ChartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val useCase: UseCase) : ViewModel() {
+class HomeViewModel @Inject constructor(private val chartUseCase: ChartUseCase) : ViewModel() {
 
     private val _track: MutableLiveData<Resource<List<Track>>> = MutableLiveData()
     val track: LiveData<Resource<List<Track>>> = _track
 
     fun chart() {
         viewModelScope.launch {
-            useCase.chart().collectLatest {
+            chartUseCase.chart().collectLatest {
                 _track.value = it
             }
         }
@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(private val useCase: UseCase) : ViewMode
 
     fun setFavorite(data: Track, favorite: Boolean) {
         viewModelScope.launch {
-            useCase.setFavorite(data, favorite)
+            chartUseCase.setFavorite(data, favorite)
         }
     }
 }

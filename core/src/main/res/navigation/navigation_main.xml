@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/favorite"
-        android:name="com.zogik.favorite.Favorite"
+        android:name="com.zogik.favorite.presentation.FavoriteFragment"
         android:label="Favorite"
         app:moduleName="favorite" />
 

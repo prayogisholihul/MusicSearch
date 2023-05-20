@@ -28,6 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
+        HiltDynamicFeature()
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
@@ -61,6 +62,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    private fun HiltDynamicFeature() {
     }
 
     companion object {
