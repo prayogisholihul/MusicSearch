@@ -52,6 +52,7 @@ object MapperTrack {
                 it.titleShort.orEmpty(),
                 it.duration ?: 0,
                 it.rank ?: 0,
+                it.position.orEmpty(),
                 it.explicitContentLyrics ?: 0,
                 isFavorite = false,
             )
@@ -103,6 +104,7 @@ object MapperTrack {
                 it.titleShort,
                 it.duration,
                 it.rank,
+                it.position,
                 it.explicitContentLyrics,
                 it.isFavorite,
             )
@@ -154,6 +156,7 @@ object MapperTrack {
             data.titleShort,
             data.duration,
             data.rank,
+            data.position,
             data.explicitContentLyrics,
             data.isFavorite,
         )

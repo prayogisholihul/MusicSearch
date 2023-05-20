@@ -1,5 +1,9 @@
 package com.zogik.core.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Album(
     val id: String,
     val cover: String,
@@ -11,4 +15,4 @@ data class Album(
     val title: String,
     val type: String,
     val coverBig: String,
-)
+) : Parcelable

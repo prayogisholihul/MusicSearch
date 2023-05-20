@@ -15,11 +15,14 @@ import com.zogik.feature.presentation.home.viewmodel.State
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class Home : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, State {
+class Home : BaseFragment<FragmentHomeBinding>(), State {
 
     private val viewModel: HomeViewModel by viewModels()
     private val adapter: ChartAdapter by lazy {
-        ChartAdapter {}
+        ChartAdapter {
+            val direction = HomeDirections.homeToDetail(it)
+            findNavController().navigate(direction)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,7 +49,6 @@ class Home : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, State {
     }
 
     override fun initAction() {
-        binding.textView.setOnClickListener(this)
     }
 
     override fun onLoadingChart() {
@@ -63,14 +65,5 @@ class Home : BaseFragment<FragmentHomeBinding>(), View.OnClickListener, State {
     override fun onErrorChart(error: String) {
         super.onErrorChart(error)
         Log.d("error", error)
-    }
-
-    override fun onClick(v: View?) = with(binding) {
-        when (v) {
-            textView -> {
-                val direction = HomeDirections.homeToDetail()
-                findNavController().navigate(direction)
-            }
-        }
     }
 }

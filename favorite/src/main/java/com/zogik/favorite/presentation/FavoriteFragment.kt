@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.zogik.core.domain.model.Track
 import com.zogik.core.presentation.BaseFragment
 import com.zogik.favorite.databinding.FragmentFavoriteBinding
-import com.zogik.favorite.presentation.di.DaggerModuleComponent
+import com.zogik.favorite.di.DaggerModuleComponent
 import com.zogik.favorite.presentation.viewmodel.FavoriteViewModel
 import com.zogik.favorite.presentation.viewmodel.Observer
 import com.zogik.favorite.presentation.viewmodel.State
@@ -22,7 +22,9 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), State {
     lateinit var viewModel: FavoriteViewModel
 
     private val adapter: ChartAdapter by lazy {
-        ChartAdapter {}
+        ChartAdapter {
+
+        }
     }
 
     override fun onAttach(context: Context) {

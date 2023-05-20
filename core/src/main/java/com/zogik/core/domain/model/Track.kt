@@ -1,5 +1,9 @@
 package com.zogik.core.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Track(
     val id: String,
     val readable: Boolean,
@@ -16,6 +20,7 @@ data class Track(
     val titleShort: String,
     val duration: Int,
     val rank: Int,
+    val position: String,
     val explicitContentLyrics: Int,
     val isFavorite: Boolean,
-)
+) : Parcelable

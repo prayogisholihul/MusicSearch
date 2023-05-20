@@ -1,4 +1,4 @@
-package com.zogik.feature.presentation.home
+package com.zogik.feature.presentation.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,9 +9,13 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.zogik.core.domain.model.Track
 import com.zogik.feature.databinding.ChartViewBinding
+import com.zogik.feature.presentation.detail.viewmodel.DetailViewModel
 
-class ChartAdapter(private val onClick: (Track) -> Unit) :
-    RecyclerView.Adapter<ChartAdapter.ChartViewHolder>() {
+class ArtistTrackAdapter(
+    private val viewModel: DetailViewModel,
+    private val onClick: (Boolean) -> Unit,
+) :
+    RecyclerView.Adapter<ArtistTrackAdapter.ArtistTrackViewHolder>() {
 
     private val diffUtil = object : DiffUtil.ItemCallback<Track>() {
         override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
@@ -25,8 +29,8 @@ class ChartAdapter(private val onClick: (Track) -> Unit) :
 
     val asyncData = AsyncListDiffer(this, diffUtil)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChartViewHolder {
-        return ChartViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistTrackViewHolder {
+        return ArtistTrackViewHolder(
             ChartViewBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -37,13 +41,15 @@ class ChartAdapter(private val onClick: (Track) -> Unit) :
 
     override fun getItemCount(): Int = asyncData.currentList.size
 
-    override fun onBindViewHolder(holder: ChartViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ArtistTrackViewHolder, position: Int) {
         holder.bind(asyncData.currentList[position])
     }
 
-    inner class ChartViewHolder(private val binding: ChartViewBinding) :
+    inner class ArtistTrackViewHolder(private val binding: ChartViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Track) = with(binding) {
+            val localTrack = viewModel.getLocalTrack(data.id)
+
             imageView.load(data.album.coverSmall) {
                 transformations(CircleCropTransformation())
             }
@@ -51,7 +57,7 @@ class ChartAdapter(private val onClick: (Track) -> Unit) :
             trackName.text = data.title
 
             root.setOnClickListener {
-                onClick.invoke(data)
+                if (data.id == localTrack.id) onClick.invoke(localTrack.isFavorite)
             }
         }
     }

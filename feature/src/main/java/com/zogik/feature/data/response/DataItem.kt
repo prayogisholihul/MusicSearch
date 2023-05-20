@@ -46,6 +46,9 @@ data class DataItem(
     @field:SerializedName("rank")
     val rank: Int? = null,
 
+    @field:SerializedName("position")
+    val position: String? = null,
+
     @field:SerializedName("id")
     val id: String? = null,
 
