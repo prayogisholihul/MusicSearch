@@ -1,8 +1,8 @@
-package com.zogik.musicsearch.dynamicfeature.di
+package com.zogik.core.di.favorite
 
-import com.zogik.musicsearch.dynamicfeature.domain.FavoriteInteractor
-import com.zogik.musicsearch.dynamicfeature.domain.FavoriteRepository
-import com.zogik.musicsearch.dynamicfeature.domain.FavoriteUseCase
+import com.zogik.core.domain.favorite.FavoriteInteractor
+import com.zogik.core.domain.favorite.FavoriteRepository
+import com.zogik.core.domain.favorite.FavoriteUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.EntryPoint

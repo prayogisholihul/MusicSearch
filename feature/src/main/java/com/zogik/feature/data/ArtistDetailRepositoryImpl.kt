@@ -1,6 +1,7 @@
 package com.zogik.feature.data
 
 import com.zogik.core.data.DatabaseApp
+import com.zogik.core.data.mapper.MapperFavorite
 import com.zogik.core.domain.model.Track
 import com.zogik.core.utils.BaseApiResponse
 import com.zogik.core.utils.Resource
@@ -28,9 +29,15 @@ class ArtistDetailRepositoryImpl @Inject constructor(
     }
 
     override fun getFavoriteById(trackId: String): Track {
-        val dataBase = local.getChartDao().getFavorite()
+        val dataBase = local.getFavDao().getFavorite()
         val data = dataBase.find { it.id == trackId }
 
         return data.entityToDomain()
+    }
+
+    override fun setFavorite(data: Track, favorite: Boolean) {
+        val entity = MapperFavorite.domainToEntity(data)
+        entity.isFavorite = favorite
+        local.getFavDao().setFavorite(entity)
     }
 }

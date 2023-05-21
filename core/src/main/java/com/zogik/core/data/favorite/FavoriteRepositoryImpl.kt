@@ -1,24 +1,24 @@
-package com.zogik.musicsearch.dynamicfeature.data
+package com.zogik.core.data.favorite
 
 import com.zogik.core.data.DatabaseApp
+import com.zogik.core.data.mapper.MapperFavorite
+import com.zogik.core.domain.favorite.FavoriteRepository
 import com.zogik.core.domain.model.Track
-import com.zogik.feature.data.mapper.MapperTrack
-import com.zogik.musicsearch.dynamicfeature.domain.FavoriteRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class FavoriteRepositoryImpl(private val local: DatabaseApp) : FavoriteRepository {
     override suspend fun getFavorite(): Flow<List<Track>> {
         return flow {
-            val favorite = local.getChartDao().getFavorite()
-            val mapper = MapperTrack.entityToDomain(favorite)
+            val favorite = local.getFavDao().getFavorite()
+            val mapper = MapperFavorite.entityToDomain(favorite)
             emit(mapper)
         }
     }
 
     override suspend fun deleteFavorite(data: Track, isFavorite: Boolean) {
-        val mapper = MapperTrack.domainToEntity(data)
+        val mapper = MapperFavorite.domainToEntity(data)
         mapper.isFavorite = isFavorite
-        local.getChartDao().setFavorite(mapper)
+        local.getFavDao().setFavorite(mapper)
     }
 }

@@ -1,8 +1,8 @@
 package com.zogik.favorite.di
 
 import android.content.Context
+import com.zogik.core.di.favorite.UseCaseModule
 import com.zogik.favorite.presentation.FavoriteFragment
-import com.zogik.musicsearch.dynamicfeature.di.UseCaseModule
 import dagger.BindsInstance
 import dagger.Component
 

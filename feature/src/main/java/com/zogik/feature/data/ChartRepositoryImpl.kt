@@ -42,18 +42,4 @@ class ChartRepositoryImpl @Inject constructor(
             coroutineDispatcher = Dispatchers.IO,
         )
     }
-
-    override suspend fun getFavorite(): Flow<List<Track>> {
-        return flow {
-            val entity = local.getChartDao().getFavorite()
-            val mapper = MapperTrack.entityToDomain(entity)
-            emit(mapper)
-        }
-    }
-
-    override suspend fun setFavorite(data: Track, favorite: Boolean) {
-        val entity = MapperTrack.domainToEntity(data)
-        entity.isFavorite = favorite
-        local.getChartDao().setFavorite(entity)
-    }
 }

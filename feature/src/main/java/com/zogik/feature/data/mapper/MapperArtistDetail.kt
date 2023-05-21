@@ -1,6 +1,6 @@
 package com.zogik.feature.data.mapper
 
-import com.zogik.core.data.entity.TrackEntity
+import com.zogik.core.data.entity.FavoriteTrack
 import com.zogik.core.domain.model.Album
 import com.zogik.core.domain.model.Artist
 import com.zogik.core.domain.model.Track
@@ -60,7 +60,7 @@ object MapperArtistDetail {
         return data
     }
 
-    fun TrackEntity?.entityToDomain(): Track {
+    fun FavoriteTrack?.entityToDomain(): Track {
         val artistConvert = Artist(
             this?.artist?.id.orEmpty(),
             this?.artist?.pictureXl.orEmpty(),

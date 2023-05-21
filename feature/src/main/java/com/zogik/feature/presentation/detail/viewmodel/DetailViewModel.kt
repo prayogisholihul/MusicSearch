@@ -30,4 +30,8 @@ class DetailViewModel @Inject constructor(private val useCase: ArtistDetailUseCa
     fun getLocalTrack(trackId: String): Track {
         return useCase.getFavoriteById(trackId)
     }
+
+    fun setFavorite(data: Track, isFavorite: Boolean) {
+        useCase.setFavorite(data, isFavorite)
+    }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zogik.core.di.favorite.UseCaseModule
 import com.zogik.core.domain.model.Track
 import com.zogik.core.presentation.BaseFragment
 import com.zogik.favorite.databinding.FragmentFavoriteBinding
@@ -12,7 +13,6 @@ import com.zogik.favorite.presentation.viewmodel.FavoriteViewModel
 import com.zogik.favorite.presentation.viewmodel.Observer
 import com.zogik.favorite.presentation.viewmodel.State
 import com.zogik.feature.presentation.home.ChartAdapter
-import com.zogik.musicsearch.dynamicfeature.di.UseCaseModule
 import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 
@@ -23,7 +23,6 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), State {
 
     private val adapter: ChartAdapter by lazy {
         ChartAdapter {
-
         }
     }
 

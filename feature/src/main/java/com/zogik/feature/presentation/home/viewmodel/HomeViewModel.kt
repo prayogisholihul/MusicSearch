@@ -25,10 +25,4 @@ class HomeViewModel @Inject constructor(private val chartUseCase: ChartUseCase) 
             }
         }
     }
-
-    fun setFavorite(data: Track, favorite: Boolean) {
-        viewModelScope.launch {
-            chartUseCase.setFavorite(data, favorite)
-        }
-    }
 }

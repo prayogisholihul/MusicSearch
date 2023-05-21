@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.zogik.core.R
 import com.zogik.core.domain.model.Track
+import com.zogik.core.utils.visible
 import com.zogik.feature.databinding.ChartViewBinding
 import com.zogik.feature.presentation.detail.viewmodel.DetailViewModel
 
@@ -55,9 +57,33 @@ class ArtistTrackAdapter(
             }
             artistName.text = data.artist.name
             trackName.text = data.title
+            trackName.isSelected = true
+            buttonFav.visible()
 
-            root.setOnClickListener {
-                if (data.id == localTrack.id) onClick.invoke(localTrack.isFavorite)
+            favorite(data, localTrack)
+
+            var click = data.id == localTrack.id
+            buttonFav.setOnClickListener {
+                click = if (click) {
+                    buttonFav.setImageResource(R.drawable.ic_favorite)
+                    viewModel.setFavorite(data, false)
+                    false
+                } else {
+                    buttonFav.setImageResource(R.drawable.ic_favorite_clicked)
+                    viewModel.setFavorite(data, true)
+                    true
+                }
+            }
+        }
+
+        private fun favorite(
+            track: Track,
+            local: Track,
+        ) = with(binding) {
+            if (track.id == local.id) {
+                buttonFav.setImageResource(R.drawable.ic_favorite_clicked)
+            } else {
+                buttonFav.setImageResource(R.drawable.ic_favorite)
             }
         }
     }

@@ -2,7 +2,7 @@ package com.zogik.favorite.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.zogik.musicsearch.dynamicfeature.domain.FavoriteUseCase
+import com.zogik.core.domain.favorite.FavoriteUseCase
 import javax.inject.Inject
 
 class ViewModelFactory @Inject constructor(

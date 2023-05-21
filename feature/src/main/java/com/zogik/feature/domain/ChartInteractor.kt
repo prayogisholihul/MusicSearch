@@ -9,12 +9,4 @@ class ChartInteractor @Inject constructor(private val repo: ChartRepository) : C
     override suspend fun chart(): Flow<Resource<List<Track>>> {
         return repo.chart()
     }
-
-    override suspend fun getFavorite(): Flow<List<Track>> {
-        return repo.getFavorite()
-    }
-
-    override suspend fun setFavorite(data: Track, favorite: Boolean) {
-        return repo.setFavorite(data, favorite)
-    }
 }

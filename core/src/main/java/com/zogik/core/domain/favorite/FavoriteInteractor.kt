@@ -1,4 +1,4 @@
-package com.zogik.musicsearch.dynamicfeature.domain
+package com.zogik.core.domain.favorite
 
 import com.zogik.core.domain.model.Track
 import kotlinx.coroutines.flow.Flow

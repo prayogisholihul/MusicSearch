@@ -1,8 +1,8 @@
-package com.zogik.musicsearch.dynamicfeature.di
+package com.zogik.core.di.favorite
 
 import com.zogik.core.data.DatabaseApp
-import com.zogik.musicsearch.dynamicfeature.data.FavoriteRepositoryImpl
-import com.zogik.musicsearch.dynamicfeature.domain.FavoriteRepository
+import com.zogik.core.data.favorite.FavoriteRepositoryImpl
+import com.zogik.core.domain.favorite.FavoriteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
