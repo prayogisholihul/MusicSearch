@@ -18,5 +18,9 @@ class Observer(
                 Resource.Status.ERROR -> state.onErrorTrackArtist(it.error.orEmpty())
             }
         }
+
+        viewModel.localTrack.observe(owner) {
+            state.onGetLocalTrack(it)
+        }
     }
 }

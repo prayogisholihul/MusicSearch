@@ -13,8 +13,8 @@ class ArtistDetailInteractor @Inject constructor(private val repo: ArtistDetailR
         return repo.artistDetail(artistId)
     }
 
-    override fun getFavoriteById(trackId: String): Track {
-        return repo.getFavoriteById(trackId)
+    override fun getFavorite(): Flow<List<Track>> {
+        return repo.getFavorite()
     }
 
     override fun setFavorite(data: Track) {

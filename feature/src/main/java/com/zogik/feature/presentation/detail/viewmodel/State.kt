@@ -7,4 +7,6 @@ interface State {
     fun onLoadingTrackArtist() {}
     fun onSuccessTrackArtist(data: List<Track>) {}
     fun onErrorTrackArtist(error: String) {}
+
+    fun onGetLocalTrack(data: List<Track>) {}
 }

@@ -28,11 +28,11 @@ class ArtistDetailRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getFavoriteById(trackId: String): Track {
-        val dataBase = local.getFavDao().getFavorite()
-        val data = dataBase.find { it.id == trackId }
-
-        return data.entityToDomain()
+    override fun getFavorite(): Flow<List<Track>> {
+        return flow {
+            val dataBase = local.getFavDao().getFavorite()
+            emit(dataBase.entityToDomain())
+        }
     }
 
     override fun setFavorite(data: Track) {

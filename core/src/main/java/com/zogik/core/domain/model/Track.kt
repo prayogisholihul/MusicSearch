@@ -22,4 +22,5 @@ data class Track(
     val rank: Int,
     val position: String,
     val explicitContentLyrics: Int
-) : Parcelable
+) : Parcelable {
+}

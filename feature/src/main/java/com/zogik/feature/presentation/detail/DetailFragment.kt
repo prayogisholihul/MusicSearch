@@ -37,11 +37,20 @@ class DetailFragment :
     private val args: DetailFragmentArgs by navArgs()
     private val viewModel by viewModels<DetailViewModel>()
 
-    private val adapter by lazy {
-        ArtistTrackAdapter(viewModel)
-    }
-
     private lateinit var menuHost: MenuHost
+    private val localTrack = arrayListOf<Track>()
+
+    private val adapter by lazy {
+        ArtistTrackAdapter(
+            localTrack,
+            favorite = {
+                viewModel.setFavorite(it)
+            },
+            unFavorite = {
+                viewModel.deleteFavorite(it)
+            },
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -80,6 +89,13 @@ class DetailFragment :
 
     override fun initData() {
         viewModel.getTrackArtist(args.data.artist.id)
+        viewModel.getLocalTrack()
+    }
+
+    override fun onGetLocalTrack(data: List<Track>) {
+        super.onGetLocalTrack(data)
+        localTrack.clear()
+        localTrack.addAll(data)
     }
 
     override fun onLoadingTrackArtist() {

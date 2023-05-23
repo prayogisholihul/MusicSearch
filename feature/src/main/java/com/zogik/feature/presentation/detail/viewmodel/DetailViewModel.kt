@@ -27,8 +27,15 @@ class DetailViewModel @Inject constructor(private val useCase: ArtistDetailUseCa
         }
     }
 
-    fun getLocalTrack(trackId: String): Track {
-        return useCase.getFavoriteById(trackId)
+    private val _localTrack: MutableLiveData<List<Track>> = MutableLiveData()
+    val localTrack: LiveData<List<Track>> = _localTrack
+
+    fun getLocalTrack() {
+        viewModelScope.launch {
+            useCase.getFavorite().collectLatest {
+                _localTrack.value = it
+            }
+        }
     }
 
     fun setFavorite(data: Track) = useCase.setFavorite(data)

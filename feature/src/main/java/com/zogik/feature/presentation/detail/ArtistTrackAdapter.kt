@@ -13,11 +13,12 @@ import com.zogik.core.R
 import com.zogik.core.domain.model.Track
 import com.zogik.core.utils.visible
 import com.zogik.feature.databinding.ChartViewBinding
-import com.zogik.feature.presentation.detail.viewmodel.DetailViewModel
 import java.util.Locale
 
 class ArtistTrackAdapter(
-    private val viewModel: DetailViewModel,
+    private val local: List<Track>,
+    private val favorite: (Track) -> Unit,
+    private val unFavorite: (Track) -> Unit,
 ) :
     RecyclerView.Adapter<ArtistTrackAdapter.ArtistTrackViewHolder>(), Filterable {
 
@@ -49,7 +50,7 @@ class ArtistTrackAdapter(
     inner class ArtistTrackViewHolder(private val binding: ChartViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Track) = with(binding) {
-            val localTrack = viewModel.getLocalTrack(data.id)
+            val localTrack = local.find { it.id == data.id }
 
             imageView.load(data.album.coverSmall) {
                 transformations(CircleCropTransformation())
@@ -59,17 +60,26 @@ class ArtistTrackAdapter(
             trackName.isSelected = true
             buttonFav.visible()
 
-            favorite(data, localTrack)
+            if (localTrack != null) {
+                favorite(data, localTrack)
+            }
 
-            var click = data.id == localTrack.id
+            root.setOnClickListener {
+                Log.d("localadapter", localTrack?.id.toString())
+                Log.d("dataadapter", data.id)
+            }
+
+            var click = data.id == localTrack?.id
             buttonFav.setOnClickListener {
                 click = if (click) {
                     buttonFav.setImageResource(R.drawable.ic_favorite)
-                    viewModel.deleteFavorite(localTrack)
+                    if (localTrack != null) {
+                        unFavorite.invoke(localTrack)
+                    }
                     false
                 } else {
                     buttonFav.setImageResource(R.drawable.ic_favorite_clicked)
-                    viewModel.setFavorite(data)
+                    favorite.invoke(data)
                     true
                 }
             }
