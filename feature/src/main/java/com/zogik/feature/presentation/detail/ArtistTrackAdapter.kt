@@ -1,9 +1,11 @@
 package com.zogik.feature.presentation.detail
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -12,25 +14,15 @@ import com.zogik.core.domain.model.Track
 import com.zogik.core.utils.visible
 import com.zogik.feature.databinding.ChartViewBinding
 import com.zogik.feature.presentation.detail.viewmodel.DetailViewModel
+import java.util.Locale
 
 class ArtistTrackAdapter(
     private val viewModel: DetailViewModel,
-    private val onClick: (Boolean) -> Unit,
 ) :
-    RecyclerView.Adapter<ArtistTrackAdapter.ArtistTrackViewHolder>() {
+    RecyclerView.Adapter<ArtistTrackAdapter.ArtistTrackViewHolder>(), Filterable {
 
-    private val diffUtil = object : DiffUtil.ItemCallback<Track>() {
-        override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {
-            return oldItem == newItem
-        }
-    }
-
-    val asyncData = AsyncListDiffer(this, diffUtil)
-
+    private var filterData = arrayListOf<Track>()
+    private val trackList = arrayListOf<Track>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistTrackViewHolder {
         return ArtistTrackViewHolder(
             ChartViewBinding.inflate(
@@ -41,10 +33,17 @@ class ArtistTrackAdapter(
         )
     }
 
-    override fun getItemCount(): Int = asyncData.currentList.size
+    override fun getItemCount(): Int = filterData.size
 
     override fun onBindViewHolder(holder: ArtistTrackViewHolder, position: Int) {
-        holder.bind(asyncData.currentList[position])
+        holder.bind(filterData[position])
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setDataSearch(data: List<Track>) {
+        trackList.clear()
+        trackList.addAll(data)
+        notifyDataSetChanged()
     }
 
     inner class ArtistTrackViewHolder(private val binding: ChartViewBinding) :
@@ -66,11 +65,11 @@ class ArtistTrackAdapter(
             buttonFav.setOnClickListener {
                 click = if (click) {
                     buttonFav.setImageResource(R.drawable.ic_favorite)
-                    viewModel.setFavorite(data, false)
+                    viewModel.deleteFavorite(localTrack)
                     false
                 } else {
                     buttonFav.setImageResource(R.drawable.ic_favorite_clicked)
-                    viewModel.setFavorite(data, true)
+                    viewModel.setFavorite(data)
                     true
                 }
             }
@@ -84,6 +83,36 @@ class ArtistTrackAdapter(
                 buttonFav.setImageResource(R.drawable.ic_favorite_clicked)
             } else {
                 buttonFav.setImageResource(R.drawable.ic_favorite)
+            }
+        }
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                filterData = if (constraint.isNullOrEmpty()) {
+                    trackList
+                } else {
+                    val filteredList = arrayListOf<Track>()
+                    val filterPattern = constraint.toString().lowercase(Locale.ROOT).trim()
+                    Log.d("Search", "charSearch: $filterPattern")
+                    for (item in trackList) {
+                        if (item.title.lowercase(Locale.ROOT).contains(filterPattern)) {
+                            filteredList.add(item)
+                        }
+                    }
+                    filteredList
+                }
+                val results = FilterResults()
+                results.values = filterData
+                return results
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            @SuppressLint("NotifyDataSetChanged")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filterData = results?.values as ArrayList<Track>
+                notifyDataSetChanged()
             }
         }
     }

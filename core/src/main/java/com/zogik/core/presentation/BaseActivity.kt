@@ -11,8 +11,10 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
 
     protected lateinit var binding: B
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val bindingClass =
             (this::class.java.genericSuperclass as? ParameterizedType)?.actualTypeArguments.takeIf { it?.isNotEmpty() == true }
                 ?.get(0) as? Class<B>
@@ -22,7 +24,7 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
         if (::binding.isInitialized) {
             setContentView(binding.root)
         } else {
-            showToast("View Tidak Ditemukan")
+            showToast("View Not Found")
         }
     }
 }

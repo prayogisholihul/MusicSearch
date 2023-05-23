@@ -35,9 +35,13 @@ class ArtistDetailRepositoryImpl @Inject constructor(
         return data.entityToDomain()
     }
 
-    override fun setFavorite(data: Track, favorite: Boolean) {
+    override fun setFavorite(data: Track) {
         val entity = MapperFavorite.domainToEntity(data)
-        entity.isFavorite = favorite
         local.getFavDao().setFavorite(entity)
+    }
+
+    override fun deleteFavorite(data: Track) {
+        val entity = MapperFavorite.domainToEntity(data)
+        local.getFavDao().deleteFavorite(entity)
     }
 }

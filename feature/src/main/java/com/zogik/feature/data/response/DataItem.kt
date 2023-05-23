@@ -16,6 +16,9 @@ data class DataItem(
     @field:SerializedName("artist")
     val artistResponse: ArtistResponse? = null,
 
+    @field:SerializedName("contributors")
+    val contributors: List<ArtistResponse>? = null,
+
     @field:SerializedName("album")
     val album: AlbumResponse? = null,
 

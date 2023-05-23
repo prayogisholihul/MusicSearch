@@ -8,7 +8,7 @@ class FavoriteInteractor(private val repo: FavoriteRepository) : FavoriteUseCase
         return repo.getFavorite()
     }
 
-    override suspend fun deleteFavorite(data: Track, isFavorite: Boolean) {
-        return repo.deleteFavorite(data, isFavorite)
+    override suspend fun deleteFavorite(data: Track) {
+        return repo.deleteFavorite(data)
     }
 }

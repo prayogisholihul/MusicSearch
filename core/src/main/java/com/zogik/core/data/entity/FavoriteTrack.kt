@@ -23,6 +23,4 @@ data class FavoriteTrack(
     var rank: Int,
     var position: String,
     var explicitContentLyrics: Int,
-    var isFavorite: Boolean,
-
 )

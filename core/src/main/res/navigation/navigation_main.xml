@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/home"
         android:name="com.zogik.feature.presentation.home.Home"
-        android:label="Home">
+        android:label="@string/home">
 
         <action
             android:id="@+id/homeToDetail"
@@ -17,18 +17,23 @@
     <fragment
         android:id="@+id/favorite"
         android:name="com.zogik.favorite.presentation.FavoriteFragment"
-        android:label="Favorite"
-        app:moduleName="favorite" />
+        android:label="@string/title_favorite"
+        app:moduleName="favorite">
+
+        <action
+            android:id="@+id/favoriteToDetail"
+            app:destination="@id/detail" />
+    </fragment>
 
     <fragment
-        android:id="@+id/setting"
-        android:name="com.zogik.feature.presentation.Setting"
-        android:label="Setting" />
+        android:id="@+id/profile"
+        android:name="com.zogik.feature.presentation.Profile"
+        android:label="@string/profile" />
 
     <fragment
         android:id="@+id/detail"
         android:name="com.zogik.feature.presentation.detail.DetailFragment"
-        android:label="Detail">
+        android:label="@string/detail">
 
         <argument
             android:name="data"

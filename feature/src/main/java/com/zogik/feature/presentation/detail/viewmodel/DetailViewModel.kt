@@ -31,7 +31,7 @@ class DetailViewModel @Inject constructor(private val useCase: ArtistDetailUseCa
         return useCase.getFavoriteById(trackId)
     }
 
-    fun setFavorite(data: Track, isFavorite: Boolean) {
-        useCase.setFavorite(data, isFavorite)
-    }
+    fun setFavorite(data: Track) = useCase.setFavorite(data)
+
+    fun deleteFavorite(data: Track) = useCase.deleteFavorite(data)
 }

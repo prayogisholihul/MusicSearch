@@ -8,6 +8,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zogik.core.domain.model.Track
 import com.zogik.core.presentation.BaseFragment
+import com.zogik.core.utils.gone
+import com.zogik.core.utils.visible
 import com.zogik.feature.databinding.FragmentHomeBinding
 import com.zogik.feature.presentation.home.viewmodel.HomeViewModel
 import com.zogik.feature.presentation.home.viewmodel.Observer
@@ -53,17 +55,32 @@ class Home : BaseFragment<FragmentHomeBinding>(), State {
 
     override fun onLoadingChart() {
         super.onLoadingChart()
-        Log.d("loading", "loading")
+        showLoading()
     }
 
     override fun onSuccessChart(data: List<Track>) {
         super.onSuccessChart(data)
-        Log.d("success", "success")
+        hideLoading()
         adapter.asyncData.submitList(data)
     }
 
     override fun onErrorChart(error: String) {
         super.onErrorChart(error)
         Log.d("error", error)
+        hideLoading()
+    }
+
+    private fun showLoading() {
+        binding.apply {
+            loading.visible()
+            rvContent.gone()
+        }
+    }
+
+    private fun hideLoading() {
+        binding.apply {
+            loading.gone()
+            rvContent.visible()
+        }
     }
 }

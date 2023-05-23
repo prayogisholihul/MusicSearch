@@ -10,17 +10,18 @@ object MapperArtistDetail {
 
     fun List<DataItem>.responseToDomain(): List<Track> {
         val data = map {
+            val contributor = it.contributors.orEmpty().first()
             val artistConvert = Artist(
-                it.artistResponse?.id.orEmpty(),
-                it.artistResponse?.pictureXl.orEmpty(),
-                it.artistResponse?.tracklist.orEmpty(),
-                it.artistResponse?.pictureBig.orEmpty(),
-                it.artistResponse?.name.orEmpty(),
-                it.artistResponse?.link.orEmpty(),
-                it.artistResponse?.pictureSmall.orEmpty(),
-                it.artistResponse?.type.orEmpty(),
-                it.artistResponse?.picture.orEmpty(),
-                it.artistResponse?.pictureMedium.orEmpty(),
+                contributor.id.orEmpty(),
+                contributor.pictureXl.orEmpty(),
+                contributor.tracklist.orEmpty(),
+                contributor.pictureBig.orEmpty(),
+                contributor.name.orEmpty(),
+                contributor.link.orEmpty(),
+                contributor.pictureSmall.orEmpty(),
+                contributor.type.orEmpty(),
+                contributor.picture.orEmpty(),
+                contributor.pictureMedium.orEmpty(),
             )
             val albumConvert = Album(
                 it.album?.id.orEmpty(),
@@ -53,7 +54,6 @@ object MapperArtistDetail {
                 it.rank ?: 0,
                 it.position.orEmpty(),
                 it.explicitContentLyrics ?: 0,
-                false,
             )
         }
 
@@ -104,7 +104,6 @@ object MapperArtistDetail {
             this?.rank ?: 0,
             this?.position.orEmpty(),
             this?.explicitContentLyrics ?: 0,
-            this?.isFavorite ?: false,
         )
     }
 }

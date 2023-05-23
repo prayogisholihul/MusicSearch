@@ -16,9 +16,8 @@ class FavoriteRepositoryImpl(private val local: DatabaseApp) : FavoriteRepositor
         }
     }
 
-    override suspend fun deleteFavorite(data: Track, isFavorite: Boolean) {
+    override suspend fun deleteFavorite(data: Track) {
         val mapper = MapperFavorite.domainToEntity(data)
-        mapper.isFavorite = isFavorite
-        local.getFavDao().setFavorite(mapper)
+        local.getFavDao().deleteFavorite(mapper)
     }
 }

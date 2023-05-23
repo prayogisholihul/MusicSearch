@@ -8,10 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.google.android.play.core.splitinstall.SplitInstallManager
-import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.zogik.core.presentation.BaseActivity
 import com.zogik.musicsearch.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,27 +18,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private lateinit var navController: NavController
     private lateinit var menuBottom: Menu
 
-    private val manager: SplitInstallManager by lazy {
-        SplitInstallManagerFactory.create(this)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
-        HiltDynamicFeature()
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
         navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.home,
-                R.id.favorite,
-                R.id.setting,
+                com.zogik.core.R.id.home,
+                com.zogik.core.R.id.favorite,
+                com.zogik.core.R.id.profile,
             ),
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navController.addOnDestinationChangedListener { controller: NavController, destination: NavDestination, _: Bundle? ->
+        navController.addOnDestinationChangedListener { _: NavController, destination: NavDestination, _: Bundle? ->
             binding.bottomBar.isVisible =
                 appBarConfiguration.topLevelDestinations.contains(destination.id)
         }
@@ -50,24 +42,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun setupSmoothBottomMenu() {
         val popupMenu = PopupMenu(this, null)
-        popupMenu.inflate(R.menu.nav_menu)
+        popupMenu.inflate(com.zogik.core.R.menu.nav_menu)
         menuBottom = popupMenu.menu
         binding.bottomBar.setupWithNavController(menu = menuBottom, navController = navController)
     }
 
-    // set an active fragment programmatically
-    fun setSelectedItem(pos: Int) {
-        NavigationUI.onNavDestinationSelected(menuBottom.getItem(pos), navController)
-    }
-
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-
-    private fun HiltDynamicFeature() {
-    }
-
-    companion object {
-        private const val REQUEST_CODE_INSTALL_CONFIRMATION = 111
     }
 }

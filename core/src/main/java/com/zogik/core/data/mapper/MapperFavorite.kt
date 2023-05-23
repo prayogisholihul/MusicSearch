@@ -53,7 +53,6 @@ object MapperFavorite {
                 it.rank,
                 it.position,
                 it.explicitContentLyrics,
-                it.isFavorite,
             )
         }
 
@@ -105,7 +104,6 @@ object MapperFavorite {
             data.rank,
             data.position,
             data.explicitContentLyrics,
-            data.isFavorite,
         )
     }
 }

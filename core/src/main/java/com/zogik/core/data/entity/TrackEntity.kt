@@ -22,6 +22,5 @@ data class TrackEntity(
     var duration: Int,
     var rank: Int,
     var position: String,
-    var explicitContentLyrics: Int,
-    var isFavorite: Boolean,
+    var explicitContentLyrics: Int
 )

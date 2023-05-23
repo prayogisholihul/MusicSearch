@@ -7,5 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface ArtistDetailRepository {
     suspend fun artistDetail(artistId: String): Flow<Resource<List<Track>>>
     fun getFavoriteById(trackId: String): Track
-    fun setFavorite(data: Track, favorite: Boolean)
+    fun setFavorite(data: Track)
+
+    fun deleteFavorite(data: Track)
 }

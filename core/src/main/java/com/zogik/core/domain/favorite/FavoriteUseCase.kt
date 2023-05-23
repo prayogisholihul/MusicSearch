@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface FavoriteUseCase {
     suspend fun getFavorite(): Flow<List<Track>>
-    suspend fun deleteFavorite(data: Track, isFavorite: Boolean)
+    suspend fun deleteFavorite(data: Track)
 }
