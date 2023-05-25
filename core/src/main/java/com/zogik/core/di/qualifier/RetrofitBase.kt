@@ -2,10 +2,6 @@ import javax.inject.Qualifier
 
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
-annotation class RetrofitBase
-
-@Qualifier
-@Retention(AnnotationRetention.RUNTIME)
 annotation class LocalData
 
 @Qualifier
