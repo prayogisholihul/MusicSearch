@@ -1,6 +1,5 @@
 package com.zogik.core.di
 
-import RetrofitBase
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -72,7 +71,6 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    @RetrofitBase
     fun getRetrofit(
         baseUrl: String,
         client: OkHttpClient,
