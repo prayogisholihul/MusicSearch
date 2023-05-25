@@ -8,6 +8,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -43,8 +44,19 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideCertificate(): CertificatePinner {
+        return CertificatePinner.Builder()
+            .add(BuildConfig.HOSTNAME, "sha256/izl+wWpG5BLRXcbFJAX67L7KzOXQmDQ4w8FDMqZpYFA=")
+            .add(BuildConfig.HOSTNAME, "sha256/jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=")
+            .add(BuildConfig.HOSTNAME, "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=")
+            .build()
+    }
+
+    @Provides
+    @Singleton
     fun getOkHttpClient(
         interceptor: HttpLoggingInterceptor,
+        certificate: CertificatePinner,
     ): OkHttpClient {
         val httpBuilder = OkHttpClient.Builder()
             .addInterceptor(interceptor)
@@ -61,6 +73,7 @@ object NetworkModule {
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
+            .certificatePinner(certificate)
 
         return httpBuilder.build()
     }

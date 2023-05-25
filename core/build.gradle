@@ -29,6 +29,7 @@ android {
 
         buildConfigField("String", "API_KEY", "\"API_KEY\"")
         buildConfigField("String", "BASE_URL", "\"https://api.deezer.com/\"")
+        buildConfigField("String", "HOSTNAME", "\"api.deezer.com\"")
     }
 
     buildTypes {
