@@ -1,8 +1,14 @@
 package com.zogik.musicsearch
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -17,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     private lateinit var navController: NavController
     private lateinit var menuBottom: Menu
-
+    private lateinit var broadcastReceiver: BroadcastReceiver
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
@@ -49,5 +55,42 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        registerBroadCastReceiver()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(broadcastReceiver)
+    }
+
+    private fun registerBroadCastReceiver() {
+        broadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                when (intent.action) {
+                    Intent.ACTION_POWER_CONNECTED -> {
+                        Log.d("LeakCanary", "CONNECTED")
+                    }
+
+                    Intent.ACTION_POWER_DISCONNECTED -> {
+                        Log.d("LeakCanary", "DISCONNECTED")
+                    }
+                }
+            }
+        }
+        val intentFilter = IntentFilter()
+        intentFilter.apply {
+            addAction(Intent.ACTION_POWER_CONNECTED)
+            addAction(Intent.ACTION_POWER_DISCONNECTED)
+        }
+        ContextCompat.registerReceiver(
+            this,
+            broadcastReceiver,
+            intentFilter,
+            ContextCompat.RECEIVER_VISIBLE_TO_INSTANT_APPS,
+        )
     }
 }

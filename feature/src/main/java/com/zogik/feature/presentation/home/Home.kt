@@ -83,4 +83,9 @@ class Home : BaseFragment<FragmentHomeBinding>(), State {
             rvContent.visible()
         }
     }
+
+    override fun onDestroyView() {
+        binding.root.removeAllViews()
+        super.onDestroyView()
+    }
 }

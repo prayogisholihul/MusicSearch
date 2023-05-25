@@ -155,4 +155,9 @@ class DetailFragment :
         adapter.filter.filter(newText.orEmpty())
         return true
     }
+
+    override fun onDestroyView() {
+        binding.root.removeAllViews()
+        super.onDestroyView()
+    }
 }

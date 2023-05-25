@@ -85,4 +85,9 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), State {
         }
         adapter.asyncData.submitList(data)
     }
+
+    override fun onDestroyView() {
+        binding.root.removeAllViews()
+        super.onDestroyView()
+    }
 }
