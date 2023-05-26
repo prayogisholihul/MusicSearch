@@ -22,18 +22,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), State {
     @Inject
     lateinit var viewModel: FavoriteViewModel
 
-    private val adapter: FavoriteAdapter by lazy {
-        FavoriteAdapter(
-            toDetail = {
-                val navigation = FavoriteFragmentDirections.favoriteToDetail(it)
-                findNavController().navigate(navigation)
-            },
-            unFavorite = {
-                viewModel.setDeleteFavorite(it)
-                initData()
-            },
-        )
-    }
+    private lateinit var adapter: FavoriteAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -63,6 +52,17 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(), State {
     }
 
     override fun initUI() = with(binding) {
+        adapter = FavoriteAdapter(
+            toDetail = {
+                val navigation = FavoriteFragmentDirections.favoriteToDetail(it)
+                findNavController().navigate(navigation)
+            },
+            unFavorite = {
+                viewModel.setDeleteFavorite(it)
+                initData()
+            },
+        )
+
         rvContent.layoutManager = LinearLayoutManager(requireContext())
         rvContent.adapter = adapter
     }
