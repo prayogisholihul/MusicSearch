@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.MusicSearch" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -13,11 +13,11 @@
 
     <style name="Theme.MusicSearch" parent="Base.Theme.MusicSearch" />
 
-    <style name="toolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+    <style name="toolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary" tools:keep="@style/toolbar">
         <item name="colorOnPrimary">@color/white</item>
     </style>
 
-    <style name="circleImageView" parent="">
+    <style name="circleImageView" parent="" tools:keep="@style/circleImageView">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>

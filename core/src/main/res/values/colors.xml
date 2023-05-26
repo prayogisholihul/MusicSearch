@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purple80">#FFD0BCFF</color>
     <color name="purple40">#FF6650a4</color>
-    <color name="purple_grey80">#FFCCC2DC</color>
+    <color name="purple_grey80" tools:keep="@color/purple_grey80">#FFCCC2DC</color>
     <color name="pink80">#FFEFB8C8</color>
     <color name="purple_grey40">#FF625b71</color>
     <color name="pink40">#FF7D5260</color>
     <color name="white_20">#FFFFFBFE</color>
-    <color name="background">#F1F5F8</color>
+    <color name="background" tools:keep="@color/background">#F1F5F8</color>
 </resources>
